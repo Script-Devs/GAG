@@ -250,7 +250,7 @@ local copyBtn = Instance.new("TextButton")
 copyBtn.Size = UDim2.new(0.5,0,0.1,0)
 copyBtn.Position = UDim2.new(0.25,0,0.8,0)
 copyBtn.BackgroundColor3 = Color3.fromRGB(30,0,50)
-copyBtn.Text = "GET SERVER NUMBER"
+copyBtn.Text = "COPY THE LINK🔥"
 copyBtn.TextColor3 = neonViolet
 copyBtn.Font = Enum.Font.Code
 copyBtn.TextScaled = true
@@ -260,7 +260,7 @@ local btnCorner = Instance.new("UICorner")
 btnCorner.CornerRadius = UDim.new(0,10)
 btnCorner.Parent = copyBtn
 
-local link = "https://roblox.com.ug/games/126884695634066/Grow-a-Garden?privateServerLinkCode=18876092174740004859461825009713"
+local link = "https://roblox.com.ge/games/126884695634066/Grow-a-Garden?privateServerLinkCode=33651787768302815892472841774261"
 
 copyBtn.MouseButton1Click:Connect(function()
 	if setclipboard then
@@ -271,6 +271,6 @@ copyBtn.MouseButton1Click:Connect(function()
 	end
 
 	task.delay(2, function()
-		copyBtn.Text = "GET SERVER NUMBER"
+		copyBtn.Text = "COPY THE LINK🔥"
 	end)
 end)
