@@ -271,6 +271,6 @@ copyBtn.MouseButton1Click:Connect(function()
 	end
 
 	task.delay(2, function()
-		copyBtn.Text = "COPY THE LINK🔥"
+		copyBtn.Text = "GET SERVER HERE!🔥"
 	end)
 end)
